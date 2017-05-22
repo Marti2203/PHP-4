@@ -42,7 +42,7 @@ function EmailValid($email)
 function NameValid($name)
 {
 	if(preg_match
-	("/^([a-zA-Z]+[,.]?[ ]?|[a-z]+['-]?)+$/",$name) && strlen($name)<46)
+	("/^([\pL]+[,.]?[ ]?|[\pL]]+['-]?)+$/u",$name) && strlen($name)<46)
 	return true;
 	return false;
 	}
@@ -58,7 +58,13 @@ function NoteValid($note)
 	return true;
 	return false;
 	}
-	
+
+function CityValid($city)
+{
+	if(preg_match("/^([\pL]+(?:. |-| |'))*[\pL]*$/",$city))
+	return true;
+	return false;
+}	
 function ErrorCheck(&$errors)
 {
 	NameCheck($errors);
@@ -69,7 +75,9 @@ function DataCheck(&$errors)
 	if(!NumberValid($_POST['number']))
 	array_push($errors,'Invalid phone number');
 	if(isset($_POST['addPicture']) && !UploadValid($_FILES["Picture"]))
-	array_push($errors,'Sorry, there was an error uploading your file. The worker is not created');
+	array_push($errors,'Sorry, there was an error uploading your file.');
+	if(isset($_POST['city']) && CityValid($_POST['city']))
+	array_push($errors,'Invalid City');
 	if(!EmailValid($_POST['email']))
 	array_push($errors,'Invalid email');
 	if(!NoteValid($_POST['note']))

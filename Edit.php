@@ -48,7 +48,7 @@
 <label for="number" class="label">Phone Number</label>
 				<input type="text" name="number" class="number" value="<?php print $information['PhoneNumber']; ?>"><br>
 
-<label for="City" class="label">City</label>
+<label for="city" class="label">City</label>
 				<input type="text" name="city" class="city" value="<?php print $information['City']; ?>"><br>
 				
 <label for="note" class="label">Notes</label>
